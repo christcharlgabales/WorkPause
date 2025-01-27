@@ -28,7 +28,7 @@ function onClick() {
       </v-app-bar>
 
       <v-main>
-        <v-container> <slot name="content"></slot> </v-container>
+        <slot name="content"></slot>
       </v-main>
 
       <v-footer
@@ -37,8 +37,8 @@ function onClick() {
         border
         app
         elevation="24"
-        >2024 - Smart Leave</v-footer
-      >
+        >Copyright @ 2025 - WorkPause | All Rights Reserved
+      </v-footer>
     </v-app>
   </v-responsive>
 </template>
