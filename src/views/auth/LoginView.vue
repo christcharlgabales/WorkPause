@@ -1,5 +1,6 @@
 <script setup>
 import AppLayout from '@/components/layout/AppLayout.vue'
+import LoginForm from '@/components/auth/LoginForm.vue'
 </script>
 
 <template>
@@ -17,15 +18,7 @@ import AppLayout from '@/components/layout/AppLayout.vue'
             </v-card-title>
 
             <v-card-text class="bg-surface-light pt-4">
-              <v-form fast-fail @submit.prevent>
-                <v-text-field label="Email" variant="outlined"></v-text-field>
-
-                <v-text-field label="Password" type="password" variant="outlined"></v-text-field>
-
-                <v-btn class="mt-2 bg-primary" type="submit" prepend-icon="mdi-login" block
-                  >Login</v-btn
-                >
-              </v-form>
+              <LoginForm></LoginForm>
 
               <v-divider class="my-5"> </v-divider>
               <h5 class="text-center">
