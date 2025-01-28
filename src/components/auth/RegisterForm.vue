@@ -6,6 +6,7 @@ import {
   confirmedValidator,
 } from '@/utils/validators'
 import { ref } from 'vue'
+import { supabase, formActionDefault } from '@/utils/supabase'
 
 const formDataDefault = {
   firstname: '',
@@ -17,6 +18,11 @@ const formDataDefault = {
 const formData = ref({
   ...formDataDefault,
 })
+
+const formAction = ref({
+  ...formActionDefault,
+})
+
 const visible = ref(false)
 const confirmPasswordVisible = ref(false)
 const refVForm = ref()
@@ -33,6 +39,26 @@ const onFormSubmit = () => {
 </script>
 
 <template>
+  <v-alert
+    v-if="formActionDefault.formSuccessMessage"
+    :text="formActionDefault.formSuccessMessage"
+    title="Ooops!"
+    type="error"
+    variant="tonal"
+    density="compact"
+    border="start"
+    closable
+  ></v-alert>
+  <v-alert
+    v-if="formActionDefault.formErrorMessage"
+    :text="formActionDefault.formErrorMessage"
+    title="Ooops!"
+    type="error"
+    variant="tonal"
+    density="compact"
+    border="start"
+    closable
+  ></v-alert>
   <v-form ref="refVForm" @submit.prevent="onFormSubmit">
     <v-row>
       <v-col cols="12" sm="6">
@@ -81,7 +107,14 @@ const onFormSubmit = () => {
       ]"
     ></v-text-field>
 
-    <v-btn class="mt-2 bg-primary" type="submit" prepend-icon="mdi-account-plus" block
+    <v-btn
+      class="mt-2 bg-primary"
+      type="submit"
+      prepend-icon="mdi-account-plus"
+      block
+      color="deep-orange-lighten-1"
+      :disabled="formAction.formProcess"
+      :loading="formAction.formProcess"
       >Register</v-btn
     >
   </v-form>
