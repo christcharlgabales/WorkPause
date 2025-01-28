@@ -27,8 +27,34 @@ const visible = ref(false)
 const confirmPasswordVisible = ref(false)
 const refVForm = ref()
 
-const onSubmit = () => {
-  alert(formData.value.email)
+const onSubmit = async () => {
+  formAction.value = { ...formActionDefault }
+  formAction.value.formProcess = true
+
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.value.email,
+    password: formData.value.password,
+    options: {
+      data: {
+        firstname: formData.value.firstname,
+        lastname: formData.value.lastname,
+      },
+    },
+  })
+
+  if (error) {
+    console.log(error)
+    formAction.value.formErrorMessage = error.message
+    formAction.value.formStatus = error.status
+    refVForm.value?.reset()
+  } else if (data) {
+    console.log(data)
+    formAction.value.formSuccessMessage = 'Account Registered Successfully'
+
+    //Add here more actions if you wanttt
+    refVForm.value?.reset()
+  }
+  formAction.value.formProcess = false
 }
 
 const onFormSubmit = () => {
@@ -40,18 +66,20 @@ const onFormSubmit = () => {
 
 <template>
   <v-alert
-    v-if="formActionDefault.formSuccessMessage"
-    :text="formActionDefault.formSuccessMessage"
-    title="Ooops!"
-    type="error"
+    class="mb-5"
+    v-if="formAction.formSuccessMessage"
+    :text="formAction.formSuccessMessage"
+    title="Success!"
+    type="success"
     variant="tonal"
     density="compact"
     border="start"
     closable
   ></v-alert>
   <v-alert
-    v-if="formActionDefault.formErrorMessage"
-    :text="formActionDefault.formErrorMessage"
+    class="mb-5"
+    v-if="formAction.formErrorMessage"
+    :text="formAction.formErrorMessage"
     title="Ooops!"
     type="error"
     variant="tonal"
