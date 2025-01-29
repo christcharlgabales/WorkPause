@@ -1,6 +1,9 @@
 <script setup>
 import AppLayout from '@/components/layout/AppLayout.vue'
 import LoginForm from '@/components/auth/LoginForm.vue'
+import { useDisplay } from 'vuetify'
+
+const { mobile } = useDisplay()
 </script>
 
 <template>
@@ -8,11 +11,18 @@ import LoginForm from '@/components/auth/LoginForm.vue'
     <template #content>
       <v-container fluid>
         <v-row>
-          <v-col cols="12" md="6" class="mx-auto"
+          <v-col cols="12" md="6" class="mx-auto pt-16"
             ><v-card class="mx-auto" elevation="24">
-              <v-img src="/images/leave-logo.png"> </v-img>
-
               <v-card-title class="text-center">
+                <v-img
+                  class="mx-auto"
+                  src="/images/leave-logo.png"
+                  :width="mobile ? '75vw' : '25vw'"
+                  :height="mobile ? '75vw' : '25vw'"
+                  cover
+                  style="border-radius: 50%; object-fit: cover"
+                ></v-img>
+
                 <h3 class="font-weight-black text-center">Work Pause</h3>
                 <p>Login Form</p>
                 <v-divider class="my-2"></v-divider>

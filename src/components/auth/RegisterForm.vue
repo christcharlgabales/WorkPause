@@ -7,7 +7,7 @@ import {
 } from '@/utils/validators'
 import { ref } from 'vue'
 import { supabase, formActionDefault } from '@/utils/supabase'
-
+import AlertNotification from '@/components/common/AlertNotification.vue'
 const formDataDefault = {
   firstname: '',
   lastname: '',
@@ -65,28 +65,10 @@ const onFormSubmit = () => {
 </script>
 
 <template>
-  <v-alert
-    class="mb-5"
-    v-if="formAction.formSuccessMessage"
-    :text="formAction.formSuccessMessage"
-    title="Success!"
-    type="success"
-    variant="tonal"
-    density="compact"
-    border="start"
-    closable
-  ></v-alert>
-  <v-alert
-    class="mb-5"
-    v-if="formAction.formErrorMessage"
-    :text="formAction.formErrorMessage"
-    title="Ooops!"
-    type="error"
-    variant="tonal"
-    density="compact"
-    border="start"
-    closable
-  ></v-alert>
+  <AlertNotification
+    :form-error-message="formAction.formErrorMessage"
+    :form-success-message="formAction.formSuccessMessage"
+  ></AlertNotification>
   <v-form ref="refVForm" @submit.prevent="onFormSubmit">
     <v-row>
       <v-col cols="12" sm="6">
